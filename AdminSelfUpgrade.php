@@ -386,22 +386,6 @@ class AdminSelfUpgrade extends AdminSelfTab
             $this->id = $_COOKIE['id_tab'];
         }
 
-        // Database instanciation (need to be cached because there will be at least 100k calls in the upgrade process
-        if (!class_exists('Db', false)) {
-            require_once(_PS_ROOT_DIR_.'/modules/autoupgrade/db/Db.php');
-            eval('abstract class Db extends DbCore{}');
-            require_once(_PS_ROOT_DIR_.'/modules/autoupgrade/db/MySQL.php');
-            eval('class MySQL extends MySQLCore{}');
-            require_once(_PS_ROOT_DIR_.'/modules/autoupgrade/db/DbMySQLi.php');
-            eval('class DbMySQLi extends DbMySQLiCore{}');
-            require_once(_PS_ROOT_DIR_.'/modules/autoupgrade/db/DbPDO.php');
-            eval('class DbPDO extends DbPDOCore{}');
-            require_once(_PS_ROOT_DIR_.'/modules/autoupgrade/db/DbQuery.php');
-            eval('class DbQuery extends DbQueryCore{}');
-
-            require_once(_PS_ROOT_DIR_.'/modules/autoupgrade/alias.php');
-        }
-
         $this->db = Db::getInstance();
 
         // Performance settings, if your server has a low memory size, lower these values
