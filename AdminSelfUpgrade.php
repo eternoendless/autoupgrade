@@ -577,12 +577,6 @@ class AdminSelfUpgrade extends AdminSelfTab
         $this->action = empty($_REQUEST['action'])?null:$_REQUEST['action'];
         $this->currentParams = empty($_REQUEST['params'])?null:$_REQUEST['params'];
         // test writable recursively
-        if (!class_exists('ConfigurationTest', false)) {
-            require_once(dirname(__FILE__).'/classes/ConfigurationTest.php');
-            if (!class_exists('ConfigurationTest', false) and class_exists('ConfigurationTestCore')) {
-                eval('class ConfigurationTest extends ConfigurationTestCore{}');
-            }
-        }
         $this->initPath();
         $upgrader = new Upgrader();
         preg_match('#([0-9]+\.[0-9]+)(?:\.[0-9]+){1,2}#', _PS_VERSION_, $matches);
