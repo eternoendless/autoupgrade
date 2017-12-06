@@ -1,59 +1,64 @@
 // @todo delete
-import $ from "jQuery";
+//import $ from "jQuery";
 
-var input = {
-  manualMode: "",
-  _PS_MODE_DEV_: true,
-  PS_AUTOUP_BACKUP: true,
-  baseUri: "http://test.com",
-  adminDir: "/admin",
-  token: "asdadsasdasdasd",
-  txtError: [],
-  firstTimeParams: {},
-  ajaxUpgradeTabExists: true,
-  currentIndex: 'page.php',
-  tab: 'AdminSelfUpgrade',
-  channel: 'major',
-  translation: {
-    confirmDeleteBackup: "Are you sure you want to delete this backup?",
-    "delete": "Delete",
-    updateInProgress: "An update is currently in progress... Click \"OK\" to abort.",
-    upgradingPrestaShop: "Upgrading PrestaShop",
-    upgradeComplete: "Upgrade complete",
-    upgradeCompleteWithWarnings: "Upgrade complete, but warning notifications has been found.",
-    todoList: [
-      "Cookies have changed, you will need to log in again once you refreshed the page",
-      "Javascript and CSS files have changed, please clear your browser cache with CTRL-F5",
-      "Please check that your front-office theme is functional (try to create an account, place an order...)",
-      "Product images do not appear in the front-office? Try regenerating the thumbnails in Preferences > Images",
-      "Do not forget to reactivate your shop once you have checked everything!"
-    ],
-    todoListTitle: "ToDo list:",
-    startingRestore: "Starting restoration...",
-    restoreComplete: "Restoration complete.",
-    cannotDownloadFile: "Your server cannot download the file. Please upload it first by ftp in your admin/autoupgrade directory",
-    jsonParseErrorForAction: "Javascript error (parseJSON) detected for action ",
-    manuallyGoToButton: "Manually go to %s button",
-    endOfProcess: "End of process",
-    processCancelledCheckForRestore: "Operation canceled. Checking for restoration...",
-    confirmRestoreBackup: "Do you want to restore SomeBackupName?",
-    processCancelledWithError: "Operation canceled. An error happened.",
-    missingAjaxUpgradeTab: "[TECHNICAL ERROR] ajax-upgradetab.php is missing. please reinstall the module",
-    clickToRefreshAndUseNewConfiguration: "Click to refresh the page and use the new configuration",
-    errorDetectedDuring: "Error detected during",
-    downloadTimeout: "The request exceeded the max_time_limit. Please change your server configuration.",
-    seeOrHideList: "See or hide the list",
-    coreFiles: "Core file(s)",
-    mailFiles: "Mail file(s)",
-    translationFiles: "Translation file(s)",
-    linkAndMd5CannotBeEmpty: "Link and MD5 hash cannot be empty",
-    needToEnterArchiveVersionNumber: "You need to enter the version number associated with the archive.",
-    noArchiveSelected: "No archive has been selected.",
-    needToEnterDirectoryVersionNumber: "You need to enter the version number associated with the directory.",
-    confirmSkipBackup: "Please confirm that you want to skip the backup.",
-    confirmPreserveFileOptions: "Please confirm that you want to preserve file options."
-  }
-};
+if (typeof input === 'undefined') {
+  var input = {
+    manualMode: "",
+    _PS_MODE_DEV_: true,
+    PS_AUTOUP_BACKUP: true,
+    baseUri: "http://test.com",
+    adminDir: "/admin",
+    token: "asdadsasdasdasd",
+    txtError: [],
+    firstTimeParams: {},
+    ajaxUpgradeTabExists: true,
+    currentIndex: 'page.php',
+    tab: 'AdminSelfUpgrade',
+    channel: 'major',
+    translation: {
+      confirmDeleteBackup: "Are you sure you want to delete this backup?",
+      "delete": "Delete",
+      updateInProgress: "An update is currently in progress... Click \"OK\" to abort.",
+      upgradingPrestaShop: "Upgrading PrestaShop",
+      upgradeComplete: "Upgrade complete",
+      upgradeCompleteWithWarnings: "Upgrade complete, but warning notifications has been found.",
+      todoList: [
+        "Cookies have changed, you will need to log in again once you refreshed the page",
+        "Javascript and CSS files have changed, please clear your browser cache with CTRL-F5",
+        "Please check that your front-office theme is functional (try to create an account, place an order...)",
+        "Product images do not appear in the front-office? Try regenerating the thumbnails in Preferences > Images",
+        "Do not forget to reactivate your shop once you have checked everything!"
+      ],
+      todoListTitle: "ToDo list:",
+      startingRestore: "Starting restoration...",
+      restoreComplete: "Restoration complete.",
+      cannotDownloadFile: "Your server cannot download the file. Please upload it first by ftp in your admin/autoupgrade directory",
+      jsonParseErrorForAction: "Javascript error (parseJSON) detected for action ",
+      manuallyGoToButton: "Manually go to %s button",
+      endOfProcess: "End of process",
+      processCancelledCheckForRestore: "Operation canceled. Checking for restoration...",
+      confirmRestoreBackup: "Do you want to restore SomeBackupName?",
+      processCancelledWithError: "Operation canceled. An error happened.",
+      missingAjaxUpgradeTab: "[TECHNICAL ERROR] ajax-upgradetab.php is missing. please reinstall the module",
+      clickToRefreshAndUseNewConfiguration: "Click to refresh the page and use the new configuration",
+      errorDetectedDuring: "Error detected during",
+      downloadTimeout: "The request exceeded the max_time_limit. Please change your server configuration.",
+      seeOrHideList: "See or hide the list",
+      coreFiles: "Core file(s)",
+      mailFiles: "Mail file(s)",
+      translationFiles: "Translation file(s)",
+      linkAndMd5CannotBeEmpty: "Link and MD5 hash cannot be empty",
+      needToEnterArchiveVersionNumber: "You need to enter the version number associated with the archive.",
+      noArchiveSelected: "No archive has been selected.",
+      needToEnterDirectoryVersionNumber: "You need to enter the version number associated with the directory.",
+      confirmSkipBackup: "Please confirm that you want to skip the backup.",
+      confirmPreserveFileOptions: "Please confirm that you want to preserve file options.",
+      lessOptions: "Less options",
+      moreOptions: "More options (Expert mode)",
+      filesWillBeDeleted: "Theses files will be deleted"
+    }
+  };
+}
 
 var firstTimeParams = input.firstTimeParams.nextParams;
 firstTimeParams.firstTime = "1";
@@ -112,61 +117,54 @@ $(document).ready(function(){
     }
   });
 
-  $("select[name=channel]").change(function(e){
-    $("select[name=channel]").find("option").each(function()
-    {
-      if ($(this).is(":selected"))
-        $("#for-"+$(this).attr("id")).show();
-      else
-        $("#for-"+$(this).attr("id")).hide();
+  $("select[name=channel]").change(function(e) {
+    $(this).find("option").each(function() {
+      var $this = $(this);
+        $("#for-" + $this.attr("id"))
+          .toggle($this.is(":selected"));
     });
 
     refreshChannelInfos();
   });
 
-  function refreshChannelInfos()
-  {
-    val = $("select[name=channel]").find("option:selected").val();
+  function refreshChannelInfos() {
+    var val = $("select[name=channel]").val();
     $.ajax({
-      type:"POST",
-      url : input.baseUri + input.adminDir + "/autoupgrade/ajax-upgradetab.php",
+      type: "POST",
+      url: input.baseUri + input.adminDir + "/autoupgrade/ajax-upgradetab.php",
       async: true,
-      data : {
+      data: {
         dir: input.adminDir,
-        token : input.token,
-        tab : "AdminSelfUpgrade",
-        action : "getChannelInfo",
-        ajaxMode : "1",
-        params : { channel : val}
+        token: input.token,
+        tab: "AdminSelfUpgrade",
+        action: "getChannelInfo",
+        ajaxMode: "1",
+        params: {channel: val}
       },
-      success : function(res,textStatus,jqXHR)
-      {
-        if (isJsonString(res))
+      success: function(res, textStatus, jqXHR) {
+        if (isJsonString(res)) {
           res = $.parseJSON(res);
-        else
-          res = {nextParams:{status:"error"}};
-
-        answer = res.nextParams.result;
-        if (typeof(answer) != "undefined")
-          $("#channel-infos").replaceWith(answer.div);
-        if (typeof(answer) != "undefined" && answer.available)
-        {
-          $("#channel-infos .all-infos").show();
+        } else {
+          res = {nextParams: {status: "error"}};
         }
-        else if (typeof(answer) != "undefined")
-        {
-          $("#channel-infos").html(answer.div);
-          $("#channel-infos .all-infos").hide();
+
+        var answer = res.nextParams.result;
+        if (typeof answer !== "undefined") {
+          var $channelInfos = $("#channel-infos");
+          $channelInfos.replaceWith(answer.div);
+          if (answer.available) {
+            $("#channel-infos .all-infos").show();
+          } else {
+            $channelInfos.html(answer.div);
+            $("#channel-infos .all-infos").hide();
+          }
         }
       },
-      error: function(res, textStatus, jqXHR)
-      {
-        if (textStatus == "timeout" && action == "download")
-        {
+      error: function(res, textStatus, jqXHR) {
+        if (textStatus === "timeout" && action === "download") {
           updateInfoStep(input.translation.cannotDownloadFile);
         }
-        else
-        {
+        else {
           // technical error : no translation needed
           $("#checkPrestaShopFilesVersion").html("<img src=\"../img/admin/warning.gif\" /> Error Unable to check md5 files");
         }
@@ -178,7 +176,7 @@ $(document).ready(function(){
   $.xhrPool = [];
   $.xhrPool.abortAll = function() {
     $.each(this, function(jqXHR) {
-      if (jqXHR && (jqXHR.readystate != 4)) {
+      if (jqXHR && (jqXHR.readystate !== 4)) {
         jqXHR.abort();
       }
     });
@@ -198,10 +196,11 @@ $(document).ready(function(){
   /**
    * reset rollbackParams js array (used to init rollback button)
    */
-  $("select[name=restoreName]").change(function(){
+  $("select[name=restoreName]").change(function() {
+    var val = $(this).val();
+
     // show delete button if the value is not 0
-    if($(this).val() != 0)
-    {
+    if (val != 0) {
       $("span#buttonDeleteBackup").html(
         "<br><a class=\"button confirmBeforeDelete\" href=\"index.php?tab=AdminSelfUpgrade&token="
         + input.token
@@ -213,10 +212,9 @@ $(document).ready(function(){
       );
     }
 
-    if ($("select[name=restoreName]").val() != 0)
-    {
+    if (val != 0) {
       $("#rollback").removeAttr("disabled");
-      rollbackParams = $.extend(true, {}, firstTimeParams);
+      var rollbackParams = $.extend(true, {}, firstTimeParams);
 
       delete rollbackParams.backupName;
       delete rollbackParams.backupFilesFilename;
@@ -225,15 +223,15 @@ $(document).ready(function(){
       delete rollbackParams.restoreDbFilenames;
 
       // init new name to backup
-      rollbackParams.restoreName = $("select[name=restoreName]").val();
+      rollbackParams.restoreName = val;
       prepareNextButton("#rollback", rollbackParams);
       // Note : theses buttons have been removed.
       // they will be available in a future release (when DEV_MODE and MANUAL_MODE enabled)
       // prepareNextButton("#restoreDb", rollbackParams);
       // prepareNextButton("#restoreFiles", rollbackParams);
-    }
-    else
+    } else {
       $("#rollback").attr("disabled", "disabled");
+    }
   });
 
   $("div[id|=for]").hide();
@@ -244,13 +242,15 @@ $(document).ready(function(){
   }
 });
 
-function showConfigResult(msg, type){
-  if (type == null)
+function showConfigResult(msg, type) {
+  if (type === null) {
     type = "conf";
-  $("#configResult").html("<div class=\""+type+"\">"+msg+"</div>").show();
-  if (type == "conf")
-  {
-    $("#configResult").delay(3000).fadeOut("slow", function() {
+  }
+  var $configResult = $("#configResult");
+  $configResult.html("<div class=\"" + type + "\">" + msg + "</div>").show();
+
+  if (type === "conf") {
+    $configResult.delay(3000).fadeOut("slow", function() {
       location.reload();
     });
   }
@@ -259,53 +259,55 @@ function showConfigResult(msg, type){
 // reuse previousParams, and handle xml returns to calculate next step
 // (and the correct next param array)
 // a case has to be defined for each requests that returns xml
+function afterUpdateConfig(res) {
+  var params = res.nextParams;
+  var config = params.config;
+  var $oldChannel = $("select[name=channel] option.current");
 
+  if (config.channel != $oldChannel.val()) {
+    var $newChannel = $("select[name=channel] option[value=" + config.channel + "]");
+    $oldChannel
+      .removeClass("current")
+      .html($oldChannel.html().substr(2));
 
-function afterUpdateConfig(res)
-{
-  params = res.nextParams;
-  config = params.config;
-  oldChannel = $("select[name=channel] option.current");
-  if (config.channel != oldChannel.val())
-  {
-    newChannel = $("select[name=channel] option[value="+config.channel+"]");
-    oldChannel.removeClass("current");
-    oldChannel.html(oldChannel.html().substr(2));
-    newChannel.addClass("current");
-    newChannel.html("* "+newChannel.html());
+    $newChannel
+      .addClass("current")
+      .html("* " + $newChannel.html());
   }
-  if (res.error == 1)
+
+  if (res.error == 1) {
     showConfigResult(res.next_desc, "error");
-  else
+  } else {
     showConfigResult(res.next_desc);
-  $("#upgradeNow").unbind();
-  $("#upgradeNow").replaceWith(
-    "<a class=\"button-autoupgrade\" href=\""
-    + input.currentIndex
-    + "&token="
-    + input.token
-    + "\" >"
-    + input.translation.clickToRefreshAndUseNewConfiguration
-    + "</a>"
+  }
+
+  $("#upgradeNow")
+    .unbind()
+    .replaceWith(
+      "<a class=\"button-autoupgrade\" href=\""
+      + input.currentIndex
+      + "&token="
+      + input.token
+      + "\" >"
+      + input.translation.clickToRefreshAndUseNewConfiguration
+      + "</a>"
   );
 }
 
-function startProcess(type){
+function startProcess(type) {
 
   // hide useless divs, show activity log
   $("#informationBlock,#comparisonBlock,#currentConfigurationBlock,#backupOptionsBlock,#upgradeOptionsBlock,#upgradeButtonBlock").slideUp("fast");
   $(".autoupgradeSteps a").addClass("button");
   $("#activityLogBlock").fadeIn("slow");
 
-  $(window).bind("beforeunload", function(e)
-  {
+  $(window).bind("beforeunload", function(e) {
     if (confirm(input.translation.updateInProgress)) {
       $.xhrPool.abortAll();
       $(window).unbind("beforeunload");
       return true;
-    }
-  else {
-      if (type == "upgrade") {
+    } else {
+      if (type === "upgrade") {
         e.returnValue = false;
         e.cancelBubble = true;
         if (e.stopPropagation) {
@@ -319,30 +321,28 @@ function startProcess(type){
   });
 }
 
-function afterUpgradeNow(res)
-{
+function afterUpgradeNow(res) {
   startProcess("upgrade");
-  $("#upgradeNow").unbind();
-  $("#upgradeNow").replaceWith(
-    "<span id=\"upgradeNow\" class=\"button-autoupgrade\">"
-    + input.translation.upgradingPrestaShop
-    + " ...</span>"
-  );
+  $("#upgradeNow")
+    .unbind()
+    .replaceWith(
+      "<span id=\"upgradeNow\" class=\"button-autoupgrade\">"
+      + input.translation.upgradingPrestaShop
+      + " ...</span>"
+    );
 }
 
-function afterUpgradeComplete(res)
-{
-  params = res.nextParams;
+function afterUpgradeComplete(res) {
+  var params = res.nextParams;
+
   $("#pleaseWait").hide();
-  if (params.warning_exists == "false")
-  {
+  if (params.warning_exists == "false") {
     $("#upgradeResultCheck")
       .html("<p>" + input.translation.upgradeComplete + "</p>")
       .show();
     $("#infoStep").html("<p class=\"alert alert-success\">" + input.translation.upgradeComplete + "</p>");
   }
-  else
-  {
+  else {
     params = res.nextParams;
     $("#pleaseWait").hide();
     $("#upgradeResultCheck")
@@ -351,40 +351,38 @@ function afterUpgradeComplete(res)
     $("#infoStep").html("<p class=\"alert alert-warning\">" + input.translation.upgradeCompleteWithWarnings + "</p>");
   }
 
-  todo_list = input.translation.todoList;
-
-  todo_ul = "<ul>";
-  $("#upgradeResultToDoList")
-    .html("<strong>" + input.translation.todoListTitle + "</strong>");
-  for(var i in todo_list)
-  {
-    todo_ul += "<li>"+todo_list[i]+"</li>";
+  var todoList = input.translation.todoList;
+  var todoBullets = "<ul>";
+  for (var i in todoList) {
+    todoBullets += "<li>" + todoList[i] + "</li>";
   }
-  todo_ul += "</ul>";
-  $("#upgradeResultToDoList").append(todo_ul);
-  $("#upgradeResultToDoList").show();
+
+  todoBullets += "</ul>";
+
+  $("#upgradeResultToDoList")
+    .html("<strong>" + input.translation.todoListTitle + "</strong>")
+    .append(todoBullets)
+    .show();
 
   $(window).unbind("beforeunload");
 }
 
-function afterError(res)
-{
-  params = res.nextParams;
-  if (params.next == "")
+function afterError(res) {
+  var params = res.nextParams;
+  if (params.next === "") {
     $(window).unbind("beforeunload");
+  }
   $("#pleaseWait").hide();
 
   addQuickInfo(["unbind :) "]);
 }
 
-function afterRollback(res)
-{
+function afterRollback(res) {
   startProcess("rollback");
 }
 
-function afterRollbackComplete(res)
-{
-  params = res.nextParams;
+function afterRollbackComplete(res) {
+  var params = res.nextParams;
   $("#pleaseWait").hide();
   $("#upgradeResultCheck")
     .html("<p>" + input.translation.restoreComplete + "</p>")
@@ -393,62 +391,56 @@ function afterRollbackComplete(res)
   $(window).unbind();
 }
 
-
-function afterRestoreDb(params)
-{
+function afterRestoreDb(params) {
   // $("#restoreBackupContainer").hide();
 }
 
-function afterRestoreFiles(params)
-{
+function afterRestoreFiles(params) {
   // $("#restoreFilesContainer").hide();
 }
 
-function afterBackupFiles(res)
-{
-  params = res.nextParams;
+function afterBackupFiles(res) {
+  var params = res.nextParams;
   // if (params.stepDone)
 }
 
 /**
  * afterBackupDb display the button
- *
  */
-function afterBackupDb(res)
-{
-  params = res.nextParams;
-  if (res.stepDone && input.PS_AUTOUP_BACKUP == true)
-  {
+function afterBackupDb(res) {
+  var params = res.nextParams;
+
+  if (res.stepDone && input.PS_AUTOUP_BACKUP === true) {
     $("#restoreBackupContainer").show();
-    $("select[name=restoreName]").children("options").removeAttr("selected");
     $("select[name=restoreName]")
-      .append("<option selected=\"selected\" value=\""+params.backupName+"\">"+params.backupName+"</option>")
-    $("select[name=restoreName]").change();
+      .append("<option selected=\"selected\" value=\"" + params.backupName + "\">" + params.backupName + "</option>")
+      .val('')
+      .change();
   }
 }
 
-
-function call_function(func){
+function call_function(func) {
   this[func].apply(this, Array.prototype.slice.call(arguments, 1));
 }
 
-function doAjaxRequest(action, nextParams){
-  if (input._PS_MODE_DEV_ == true)
+function doAjaxRequest(action, nextParams) {
+  if (input._PS_MODE_DEV_ === true) {
     addQuickInfo(["[DEV] ajax request : " + action]);
+  }
   $("#pleaseWait").show();
-  req = $.ajax({
-    type:"POST",
-    url : input.baseUri + input.adminDir + "/autoupgrade/ajax-upgradetab.php",
+  var req = $.ajax({
+    type: "POST",
+    url: input.baseUri + input.adminDir + "/autoupgrade/ajax-upgradetab.php",
     async: true,
-    data : {
+    data: {
       dir: input.adminDir,
-      ajaxMode : "1",
-      token : input.token,
-      tab : "AdminSelfUpgrade",
-      action : action,
-      params : nextParams
+      ajaxMode: "1",
+      token: input.token,
+      tab: "AdminSelfUpgrade",
+      action: action,
+      params: nextParams
     },
-    beforeSend: function (jqXHR) {
+    beforeSend: function(jqXHR) {
       $.xhrPool.push(jqXHR);
     },
     complete: function(jqXHR) {
@@ -456,13 +448,13 @@ function doAjaxRequest(action, nextParams){
       $.xhrPool.pop();
       // $(window).unbind("beforeunload");
     },
-    success : function(res, textStatus, jqXHR) {
+    success: function(res, textStatus, jqXHR) {
       $("#pleaseWait").hide();
-      try{
+      try {
         res = $.parseJSON(res);
       }
-      catch(e){
-        res = {status : "error", nextParams:nextParams};
+      catch (e) {
+        res = {status: "error", nextParams: nextParams};
         alert(
           input.translation.jsonParseErrorForAction
           + action
@@ -473,53 +465,54 @@ function doAjaxRequest(action, nextParams){
       addQuickInfo(res.nextQuickInfo);
       addError(res.nextErrors);
       updateInfoStep(res.next_desc);
-      currentParams = res.nextParams;
-      if (res.status == "ok")
-      {
-        $("#"+action).addClass("done");
-        if (res.stepDone)
-          $("#"+action).addClass("stepok");
+      var currentParams = res.nextParams;
+      if (res.status === "ok") {
+        $("#" + action).addClass("done");
+        if (res.stepDone) {
+          $("#" + action).addClass("stepok");
+        }
         // if a function "after[action name]" exists, it should be called now.
         // This is used for enabling restore buttons for example
-        funcName = "after" + ucFirst(action);
-        if (typeof funcName == "string" && eval("typeof " + funcName) == "function")
+        var funcName = "after" + ucFirst(action);
+        if (typeof window[funcName] === "function") {
           call_function(funcName, res);
+        }
 
         handleSuccess(res, action);
-      }
-      else
-      {
+      } else {
         // display progression
-        $("#"+action).addClass("done");
-        $("#"+action).addClass("steperror");
-        if (action != "rollback"
-          && action != "rollbackComplete"
-          && action != "restoreFiles"
-          && action != "restoreDb"
-          && action != "rollback"
-          && action != "noRollbackFound"
-        )
+        $("#" + action).addClass("done steperror");
+        var validActions = [
+          "rollback",
+          "rollbackComplete",
+          "restoreFiles",
+          "restoreDb",
+          "rollback",
+          "noRollbackFound"
+        ];
+        if (validActions.indexOf(action) === -1) {
           handleError(res, action);
-        else
+        } else {
           alert(input.translation.errorDetectedDuring + " [" + action + "].");
+        }
       }
     },
-    error: function(jqXHR, textStatus, errorThrown)
-    {
+    error: function(jqXHR, textStatus, errorThrown) {
       $("#pleaseWait").hide();
-      if (textStatus == "timeout")
-      {
-        if (action == "download")
+      if (textStatus === "timeout") {
+        if (action === "download") {
           updateInfoStep(input.translation.cannotDownloadFile);
-        else
+        } else {
           updateInfoStep("[Server Error] Timeout: " + input.translation.downloadTimeout);
+        }
       }
-      else
+      else {
         updateInfoStep("[Ajax / Server Error for action " + action + "] textStatus: \"" + textStatus + " \" errorThrown:\"" + errorThrown + " \" jqXHR: \" " + jqXHR.responseText + "\"");
+      }
     }
   });
   return req;
-};
+}
 
 /**
  * prepareNextButton make the button button_selector available, and update the nextParams values
@@ -528,15 +521,15 @@ function doAjaxRequest(action, nextParams){
  * @param nextParams $nextParams
  * @return void
  */
-function prepareNextButton(button_selector, nextParams)
-{
-  $(button_selector).unbind();
-  $(button_selector).click(function(e){
-    e.preventDefault();
-    $("#currentlyProcessing").show();
-    action = button_selector.substr(1);
-    res = doAjaxRequest(action, nextParams);
-  });
+function prepareNextButton(button_selector, nextParams) {
+  $(button_selector)
+    .unbind()
+    .click(function(e) {
+      e.preventDefault();
+      $("#currentlyProcessing").show();
+      var action = button_selector.substr(1);
+      doAjaxRequest(action, nextParams);
+    });
 }
 
 /**
@@ -545,136 +538,140 @@ function prepareNextButton(button_selector, nextParams)
  * @param res $res
  * @return void
  */
-function handleSuccess(res, action)
-{
-  if (res.next != "")
-  {
+function handleSuccess(res, action) {
+  if (res.next !== "") {
 
-    $("#"+res.next).addClass("nextStep");
-    if (input.manualMode && (action != "rollback"
-        && action != "rollbackComplete"
-        && action != "restoreFiles"
-        && action != "restoreDb"
-        && action != "rollback"
-        && action != "noRollbackFound"))
-    {
-      prepareNextButton("#"+res.next,res.nextParams);
+    $("#" + res.next).addClass("nextStep");
+    var validActions = [
+      "rollback",
+      "rollbackComplete",
+      "restoreFiles",
+      "restoreDb",
+      "rollback",
+      "noRollbackFound"
+    ];
+    if (input.manualMode && validActions.indexOf(action) === -1) {
+      prepareNextButton("#" + res.next, res.nextParams);
       alert(input.translation.manuallyGoToButton.replace("%s", res.next));
-    }
-    else
-    {
+    } else {
       // if next is rollback, prepare nextParams with rollbackDbFilename and rollbackFilesFilename
-      if ( res.next == "rollback")
-      {
+      if (res.next === "rollback") {
         res.nextParams.restoreName = "";
       }
       doAjaxRequest(res.next, res.nextParams);
       // 2) remove all step link (or show them only in dev mode)
       // 3) when steps link displayed, they should change color when passed if they are visible
     }
-  }
-  else
-  {
+  } else {
     // Way To Go, end of upgrade process
     addQuickInfo([input.translation.endOfProcess]);
   }
 }
 
 // res = {nextParams, next_desc}
-function handleError(res, action)
-{
+function handleError(res, action) {
   // display error message in the main process thing
   // In case the rollback button has been deactivated, just re-enable it
   $("#rollback").removeAttr("disabled");
   // auto rollback only if current action is upgradeFiles or upgradeDb
-  if (action == "upgradeFiles" || action == "upgradeDb" || action == "upgradeModules" )
-  {
+  var validActions = [
+    "upgradeFiles",
+    "upgradeDb",
+    "upgradeModules"
+  ];
+  if (validActions.indexOf(action) !== -1) {
     $(".button-autoupgrade").html(input.translation.processCancelledCheckForRestore);
     res.nextParams.restoreName = res.nextParams.backupName;
-    if (confirm(input.translation.confirmRestoreBackup))
-      doAjaxRequest("rollback",res.nextParams);
-  }
-  else
-  {
+    if (confirm(input.translation.confirmRestoreBackup)) {
+      doAjaxRequest("rollback", res.nextParams);
+    }
+  } else {
     $(".button-autoupgrade").html(input.translation.processCancelledWithError);
     $(window).unbind();
   }
 }
 
 // ajax to check md5 files
-function addModifiedFileList(title, fileList, css_class, container)
-{
-  subList = $("<ul class=\"changedFileList "+css_class+"\"></ul>");
+function addModifiedFileList(title, fileList, css_class, container) {
+  var subList = $("<ul class=\"changedFileList " + css_class + "\"></ul>");
 
-  $(fileList).each(function(k,v){
-    $(subList).append("<li>"+v+"</li>");
+  $(fileList).each(function(k, v) {
+    $(subList).append("<li>" + v + "</li>");
   });
-  $(container).append("<h3><a class=\"toggleSublist\" href=\"#\" >"+title+"</a> (" + fileList.length + ")</h3>");
-  $(container).append(subList);
-  $(container).append("<br/>");
+
+  $(container)
+    .append("<h3><a class=\"toggleSublist\" href=\"#\" >" + title + "</a> (" + fileList.length + ")</h3>")
+    .append(subList)
+    .append("<br/>");
 }
 
 // -- Should be executed only if ajaxUpgradeTabExists
 
 function isJsonString(str) {
   try {
-    typeof(str) != "undefined" && JSON.parse(str);
+    typeof str !== "undefined" && JSON.parse(str);
   } catch (e) {
     return false;
   }
   return true;
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
   $.ajax({
-    type:"POST",
-    url : input.baseUri + input.adminDir + "/autoupgrade/ajax-upgradetab.php",
+    type: "POST",
+    url: input.baseUri + input.adminDir + "/autoupgrade/ajax-upgradetab.php",
     async: true,
-    data : {
+    data: {
       dir: input.adminDir,
-      token : input.token,
-      tab : input.tab,
-      action : "checkFilesVersion",
-      ajaxMode : "1",
-      params : {}
+      token: input.token,
+      tab: input.tab,
+      action: "checkFilesVersion",
+      ajaxMode: "1",
+      params: {}
     },
-    success : function(res,textStatus,jqXHR)
-    {
-      if (isJsonString(res))
+    success: function(res, textStatus, jqXHR) {
+      if (isJsonString(res)) {
         res = $.parseJSON(res);
-      else
-      {
-        res = {nextParams:{status:"error"}};
+      } else {
+        res = {nextParams: {status: "error"}};
       }
-      answer = res.nextParams;
-      $("#checkPrestaShopFilesVersion").html("<span> "+answer.msg+" </span> ");
-      if ((answer.status == "error") || (typeof(answer.result) == "undefined"))
-        $("#checkPrestaShopFilesVersion").prepend("<img src=\"../img/admin/warning.gif\" /> ");
-      else
-      {
-        $("#checkPrestaShopFilesVersion").prepend("<img src=\"../img/admin/warning.gif\" /> ");
-        $("#checkPrestaShopFilesVersion").append("<a id=\"toggleChangedList\" class=\"button\" href=\"\">" + input.translation.seeOrHideList + "</a><br/>");
-        $("#checkPrestaShopFilesVersion").append("<div id=\"changedList\" style=\"display:none \"><br/>");
-        if(answer.result.core.length)
-          addModifiedFileList(input.translation.coreFiles, answer.result.core, "changedImportant", "#changedList");
-        if(answer.result.mail.length)
-          addModifiedFileList(input.translation.mailFiles, answer.result.mail, "changedNotice", "#changedList");
-        if(answer.result.translation.length)
-          addModifiedFileList(input.translation.translationFiles, answer.result.translation, "changedNotice", "#changedList");
+      var answer = res.nextParams;
+      var $checkPrestaShopFilesVersion = $("#checkPrestaShopFilesVersion");
 
-        $("#toggleChangedList").bind("click",function(e){e.preventDefault();$("#changedList").toggle();});
-        $(".toggleSublist").die().live("click",function(e){e.preventDefault();$(this).parent().next().toggle();});
+      $checkPrestaShopFilesVersion.html("<span> " + answer.msg + " </span> ");
+      if (answer.status === "error" || (typeof answer.result  === "undefined")) {
+        $checkPrestaShopFilesVersion.prepend("<img src=\"../img/admin/warning.gif\" /> ");
+      } else {
+        $checkPrestaShopFilesVersion
+          .prepend("<img src=\"../img/admin/warning.gif\" /> ")
+          .append("<a id=\"toggleChangedList\" class=\"button\" href=\"\">" + input.translation.seeOrHideList + "</a><br/>")
+          .append("<div id=\"changedList\" style=\"display:none \"><br/>");
+
+        if (answer.result.core.length) {
+          addModifiedFileList(input.translation.coreFiles, answer.result.core, "changedImportant", "#changedList");
+        }
+        if (answer.result.mail.length) {
+          addModifiedFileList(input.translation.mailFiles, answer.result.mail, "changedNotice", "#changedList");
+        }
+        if (answer.result.translation.length) {
+          addModifiedFileList(input.translation.translationFiles, answer.result.translation, "changedNotice", "#changedList");
+        }
+
+        $("#toggleChangedList").bind("click", function(e) {
+          e.preventDefault();
+          $("#changedList").toggle();
+        });
+
+        $(".toggleSublist").die().live("click", function(e) {
+          e.preventDefault();
+          $(this).parent().next().toggle();
+        });
       }
-    }
-    ,
-    error: function(res, textStatus, jqXHR)
-    {
-      if (textStatus == "timeout" && action == "download")
-      {
+    },
+    error: function(res, textStatus, jqXHR) {
+      if (textStatus === "timeout" && action === "download") {
         updateInfoStep(input.translation.cannotDownloadFile);
-      }
-      else
-      {
+      } else {
         // technical error : no translation needed
         $("#checkPrestaShopFilesVersion").html("<img src=\"../img/admin/warning.gif\" /> Error: Unable to check md5 files");
       }
@@ -682,82 +679,85 @@ $(document).ready(function(){
   });
 
   $.ajax({
-    type:"POST",
-    url : "'. __PS_BASE_URI__ . $admin_dir.'/autoupgrade/ajax-upgradetab.php",
+    type: "POST",
+    url: input.baseUri + input.adminDir + "/autoupgrade/ajax-upgradetab.php",
     async: true,
-    data : {
-      dir:"'.$admin_dir.'",
-      token : "'.$this->token.'",
-      tab : "'.get_class($this).'",
-      action : "compareReleases",
-      ajaxMode : "1",
-      params : {}
+    data: {
+      dir: input.adminDir,
+      token: input.token,
+      tab: input.tab,
+      action: "compareReleases",
+      ajaxMode: "1",
+      params: {}
     },
-    success : function(res,textStatus,jqXHR)
-    {
-      if (isJsonString(res))
+    success: function(res, textStatus, jqXHR) {
+      if (isJsonString(res)) {
         res = $.parseJSON(res);
-      else
-      {
-        res = {nextParams:{status:"error"}};
+      } else {
+        res = {nextParams: {status: "error"}};
       }
-      answer = res.nextParams;
-      $("#checkPrestaShopModifiedFiles").html("<span> "+answer.msg+" </span> ");
-      if ((answer.status == "error") || (typeof(answer.result) == "undefined"))
-        $("#checkPrestaShopModifiedFiles").prepend("<img src=\"../img/admin/warning.gif\" /> ");
-      else
-      {
-        $("#checkPrestaShopModifiedFiles").prepend("<img src=\"../img/admin/warning.gif\" /> ");
-        $("#checkPrestaShopModifiedFiles").append("<a id=\"toggleDiffList\" class=\"button\" href=\"\">'.$this->trans('See or hide the list', array(), 'Modules.Autoupgrade.Admin').'</a><br/>");
-        $("#checkPrestaShopModifiedFiles").append("<div id=\"diffList\" style=\"display:none \"><br/>");
-        if(answer.result.deleted.length)
-          addModifiedFileList("'.$this->trans('Theses files will be deleted', array(), 'Modules.Autoupgrade.Admin').'", answer.result.deleted, "diffImportant", "#diffList");
-        if(answer.result.modified.length)
-          addModifiedFileList("'.$this->trans('Theses files will be modified', array(), 'Modules.Autoupgrade.Admin').'", answer.result.modified, "diffImportant", "#diffList");
+      var answer = res.nextParams;
+      var $checkPrestaShopModifiedFiles = $("#checkPrestaShopModifiedFiles");
 
-        $("#toggleDiffList").bind("click",function(e){e.preventDefault();$("#diffList").toggle();});
-        $(".toggleSublist").die().live("click",function(e){
+      $checkPrestaShopModifiedFiles.html("<span> " + answer.msg + " </span> ");
+      if (answer.status === "error" || typeof answer.result === "undefined") {
+        $checkPrestaShopModifiedFiles.prepend("<img src=\"../img/admin/warning.gif\" /> ");
+      } else {
+        $checkPrestaShopModifiedFiles
+          .prepend("<img src=\"../img/admin/warning.gif\" /> ")
+          .append("<a id=\"toggleDiffList\" class=\"button\" href=\"\">"+input.translation.seeOrHideList+"</a><br/>")
+          .append("<div id=\"diffList\" style=\"display:none \"><br/>");
+
+        if (answer.result.deleted.length) {
+          addModifiedFileList(input.translation.filesWillBeDeleted, answer.result.deleted, "diffImportant", "#diffList");
+        }
+        if (answer.result.modified.length) {
+          addModifiedFileList(input.translation.filesWillBeDeleted, answer.result.modified, "diffImportant", "#diffList");
+        }
+
+        $("#toggleDiffList").bind("click", function(e) {
+          e.preventDefault();
+          $("#diffList").toggle();
+        });
+
+        $(".toggleSublist").die().live("click", function(e) {
           e.preventDefault();
           // this=a, parent=h3, next=ul
           $(this).parent().next().toggle();
         });
       }
     },
-    error: function(res, textStatus, jqXHR)
-    {
-      if (textStatus == "timeout" && action == "download")
-      {
+    error: function(res, textStatus, jqXHR) {
+      if (textStatus === "timeout" && action === "download") {
         updateInfoStep(input.translation.cannotDownloadFile);
-      }
-      else
-      {
+      } else {
         // technical error : no translation needed
         $("#checkPrestaShopFilesVersion").html("<img src=\"../img/admin/warning.gif\" /> Error: Unable to check md5 files");
       }
     }
-  })
+  });
 });
 
 // -- END
 
 // advanced/normal mode
-$("input[name=btn_adv]").click(function(e)
-{
-  if ($("#advanced:visible").length)
-    switch_to_normal();
-  else
-    switch_to_advanced();
-});
-
 function switch_to_advanced(){
-  $("input[name=btn_adv]").val("'.$this->trans('Less options', array(), 'Modules.Autoupgrade.Admin').'");
+  $("input[name=btn_adv]").val(input.translation.lessOptions);
   $("#advanced").show();
 }
 
 function switch_to_normal(){
-  $("input[name=btn_adv]").val("'.$this->trans('More options (Expert mode)', array(), 'Modules.Autoupgrade.Admin').'");
+  $("input[name=btn_adv]").val(input.translation.moreOptions);
   $("#advanced").hide();
 }
+
+$("input[name=btn_adv]").click(function(e) {
+  if ($("#advanced:visible").length) {
+    switch_to_normal();
+  } else {
+    switch_to_advanced();
+  }
+});
 
 $(document).ready(function(){
   if (input.channel === 'major') {
@@ -767,62 +767,57 @@ $(document).ready(function(){
   }
 });
 
-$(document).ready(function()
-{
-  $("input[name|=submitConf]").bind("click", function(e){
-    params = {};
-    newChannel = $("select[name=channel] option:selected").val();
-    oldChannel = $("select[name=channel] option.current").val();
-    oldChannel = "";
-    if (oldChannel != newChannel)
-    {
-      if( newChannel == "major"
-        || newChannel == "minor"
-        || newChannel == "rc"
-        || newChannel == "beta"
-        || newChannel == "alpha" )
-        params.channel = newChannel;
+$(document).ready(function() {
+  $("input[name|=submitConf]").bind("click", function(e) {
+    var params = {};
+    var $newChannel = $("select[name=channel] option:selected").val();
+    var $oldChannel = $("select[name=channel] option.current").val();
+    $oldChannel = "";
 
-      if(newChannel == "private")
-      {
-        if (($("input[name=private_release_link]").val() == "") || ($("input[name=private_release_md5]").val() == ""))
-        {
+    if ($oldChannel != $newChannel) {
+      var validChannels = [
+        "major",
+        "minor",
+        "rc",
+        "beta",
+        "alpha"
+      ];
+      if (validChannels.indexOf($newChannel) !== -1) {
+        params.channel = $newChannel;
+      }
+
+      if ($newChannel === "private") {
+        if (($("input[name=private_release_link]").val() == "") || ($("input[name=private_release_md5]").val() == "")) {
           showConfigResult(input.translation.linkAndMd5CannotBeEmpty, "error");
           return false;
         }
         params.channel = "private";
         params.private_release_link = $("input[name=private_release_link]").val();
         params.private_release_md5 = $("input[name=private_release_md5]").val();
-        if ($("input[name=private_allow_major]").is(":checked"))
+        if ($("input[name=private_allow_major]").is(":checked")) {
           params.private_allow_major = 1;
-        else
+        } else {
           params.private_allow_major = 0;
-      }
-      if(newChannel == "archive")
-      {
-        archive_prestashop = $("select[name=archive_prestashop] option:selected").val();
-        archive_num = $("input[name=archive_num]").val();
-        if (archive_num == "")
-        {
+        }
+      } else if ($newChannel === "archive") {
+        var archive_prestashop = $("select[name=archive_prestashop]").val();
+        var archive_num = $("input[name=archive_num]").val();
+        if (archive_num == "") {
           showConfigResult(input.translation.needToEnterArchiveVersionNumber, "error");
           return false;
         }
-        if (archive_prestashop == "")
-        {
+        if (archive_prestashop == "") {
           showConfigResult(input.translation.noArchiveSelected, "error");
           return false;
         }
         params.channel = "archive";
         params.archive_prestashop = archive_prestashop;
         params.archive_num = archive_num;
-      }
-      if(newChannel == "directory")
-      {
+      } else if ($newChannel === "directory") {
         params.channel = "directory";
         params.directory_prestashop = $("select[name=directory_prestashop] option:selected").val();
-        directory_num = $("input[name=directory_num]").val();
-        if (directory_num == "" || directory_num.indexOf(".") == -1)
-        {
+        var directory_num = $("input[name=directory_num]").val();
+        if (directory_num == "" || directory_num.indexOf(".") == -1) {
           showConfigResult(input.translation.needToEnterDirectoryVersionNumber, "error");
           return false;
         }
@@ -830,30 +825,26 @@ $(document).ready(function()
       }
     }
     // note: skipBackup is currently not used
-    if ($(this).attr("name") == "submitConf-skipBackup")
-    {
-      skipBackup = $("input[name=submitConf-skipBackup]:checked").length;
-      if (skipBackup == 0 || confirm(input.translation.confirmSkipBackup))
+    if ($(this).attr("name") == "submitConf-skipBackup") {
+      var skipBackup = $("input[name=submitConf-skipBackup]:checked").length;
+      if (skipBackup == 0 || confirm(input.translation.confirmSkipBackup)) {
         params.skip_backup = $("input[name=submitConf-skipBackup]:checked").length;
-      else
-      {
+      } else {
         $("input[name=submitConf-skipBackup]:checked").removeAttr("checked");
         return false;
       }
     }
 
     // note: preserveFiles is currently not used
-    if ($(this).attr("name") == "submitConf-preserveFiles")
-    {
-      preserveFiles = $("input[name=submitConf-preserveFiles]:checked").length;
-      if (confirm(input.translation.confirmPreserveFileOptions))
+    if ($(this).attr("name") == "submitConf-preserveFiles") {
+      var preserveFiles = $("input[name=submitConf-preserveFiles]:checked").length;
+      if (confirm(input.translation.confirmPreserveFileOptions)) {
         params.preserve_files = $("input[name=submitConf-preserveFiles]:checked").length;
-      else
-      {
+      } else {
         $("input[name=submitConf-skipBackup]:checked").removeAttr("checked");
         return false;
       }
     }
-    res = doAjaxRequest("updateConfig", params);
+    var res = doAjaxRequest("updateConfig", params);
   });
 });

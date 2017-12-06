@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
     <name>autoupgrade</name>
-    <displayName><![CDATA[1-Click Upgrade]]></displayName>
+    <displayName><![CDATA[Mise &agrave; jour en un clic]]></displayName>
     <version><![CDATA[3.0.3]]></version>
-    <description><![CDATA[Provides an automated method to upgrade your shop to the latest version of PrestaShop.]]></description>
+    <description><![CDATA[Permet une mise &agrave; jour automatis&eacute;e de votre boutique vers la derni&egrave;re version de PrestaShop.]]></description>
     <author><![CDATA[PrestaShop]]></author>
     <tab><![CDATA[administration]]></tab>
     <is_configurable>1</is_configurable>
